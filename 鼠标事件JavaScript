@@ -1,0 +1,42 @@
+var btn1 = document.getElementById("btn1");
+var handler1 = function () {
+    var p = document.getElementById("text");
+    p.innerHTML = "btn1";
+    btn1.style.backgroundColor = "red";
+    btn2.style = null;
+    btn3.style = null;
+    event.stopImmediatePropagation();
+}
+btn1.addEventListener("click", handler1, false);
+
+var btn2 = document.getElementById("btn2");
+var handler2 = function () {
+    var p = document.getElementById("text");
+    p.innerHTML = "btn2";
+    btn2.style.backgroundColor = "yellow";
+    btn1.style.backgroundColor ="transparent";
+    btn3.style = null;
+    event.stopImmediatePropagation();
+}
+btn2.addEventListener("click", handler2, false);
+
+var btn3 = document.getElementById("btn3");
+var handler3 = function () {
+    var p = document.getElementById("text");
+    p.innerHTML = "btn3";
+    btn3.style.backgroundColor = "blue";
+    btn1.style = null;
+    btn2.style = null;
+    event.stopImmediatePropagation();
+}
+btn3.addEventListener("click", handler3, false);
+
+var mybody = document.getElementsByTagName("body")[0];
+var handler4 = function () {
+    var p = document.getElementById("text");
+    btn1.style = null;
+    btn2.style = null;
+    btn3.style = null;
+    p.innerHTML =' ';
+}
+mybody.addEventListener("click", handler4, false);
