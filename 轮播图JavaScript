@@ -1,0 +1,173 @@
+var scroll = document.getElementById("scroll");
+var ul = document.getElementById("ul");
+var ulLis = ul.children;
+var liWidth = ul.children[0].offsetWidth;
+
+var num = ulLis.length - 1;
+ul.appendChild(ul.children[0].cloneNode(true));
+ul.insertBefore(ul.children[num].cloneNode(true), ul.firstChild);
+
+var ol = document.getElementById("olnavi");
+for (var i = 0; i < ulLis.length - 2; i++) {
+    var li = document.createElement("li");
+    li.id = (i + 1);
+    ol.appendChild(li);
+    
+}
+ol.children[0].className = "current";
+
+var last = document.getElementById("last");
+last.style.background = "url(images/last-control.png)";
+
+last.addEventListener("mouseenter", function () {
+    last.style.background = "url(images/newlast-control.png)";
+}, false);
+
+last.addEventListener("mouseleave", function () {
+    last.style.background = "url(images/last-control.png)";
+}, false);
+
+var next = document.getElementById("next");
+next.style.background = "url(images/next-control.png)";
+
+next.addEventListener("mouseenter", function () {
+    next.style.background = "url(images/newnext-control.png)";
+}, false);
+
+next.addEventListener("mouseleave", function () {
+    next.style.background = "url(images/next-control.png)";
+}, false);
+
+var flag = true;
+var index = 1;
+var lastclick = function () {
+    if (flag) {
+        flag = false;
+        console.log(flag);
+        if (index === 1) {
+            index = 6;
+            ul.style.left = "-5700px";
+            var n = ul.offsetLeft + liWidth;
+            if (n % liWidth !== 0) {
+                n = n - n % liWidth + liWidth;
+            }
+            animate(ul, n);
+        }
+        else {
+            var n = ul.offsetLeft + liWidth;
+            if (n % liWidth !== 0) {
+                n = n - n % liWidth + liWidth;
+            }
+            animate(ul, n);
+        }
+        index -= 1;
+        btnShow(index);
+        console.log(flag);
+    }
+}
+last.addEventListener("click", lastclick, false);
+
+var nextclick = function () {
+    if (flag) {
+        flag = false;
+        if (index === 5) {
+            index = 0;
+            ul.style.left = "0px";
+            var n = ul.offsetLeft - liWidth;
+            if (n % liWidth !== 0) {
+                n = n - n % liWidth - liWidth;
+            }
+            animate(ul, n);
+        }
+        else {
+            var n = ul.offsetLeft - liWidth;
+            if (n % liWidth !== 0) {
+                n = n - n % liWidth - liWidth;
+            }
+            animate(ul, n);
+        }
+        index += 1;
+        btnShow(index);
+    }
+}
+next.addEventListener("click",nextclick, false);
+
+function btnShow(cur_index) {
+    for (var i = 0; i < ol.children.length; i++) {
+        ol.children[i].className = ' ';
+    }
+    ol.children[cur_index - 1].className = "current";
+}
+
+function animate(obj, target) {
+    var speed = obj.offsetLeft < target ? 10 : -10;
+    obj.timer = setInterval(function () {
+        var result = target - obj.offsetLeft;
+        obj.style.left = obj.offsetLeft + speed + "px";            
+        if (Math.abs(result) <= Math.abs(speed)) {
+            clearInterval(obj.timer);
+            obj.style.left = target + "px";
+            flag = true;
+        }
+    }, 1);
+}
+
+var timer;
+function play() {
+    timer = setInterval(nextclick, 3000)
+}
+
+scroll.addEventListener("load", play(), false);
+
+scroll.addEventListener("mouseenter", function () {
+    clearInterval(timer);
+}, false);
+
+scroll.addEventListener("mouseleave", function () {
+    play();
+}, false);
+
+var olliclick = function () {
+    if (flag) {
+        flag = false;
+        var cur_li = document.getElementsByClassName("current");
+        var lastid = cur_li[0].id;
+        var distance = this.id - lastid;
+        animate_ol(ul, distance)
+    }
+}
+var ollitimer = 1
+var lis = ol.getElementsByTagName('li');
+for (ollitimer; ollitimer < lis.length+1; ollitimer++) {
+    var olli = document.getElementById(ollitimer);
+    olli.addEventListener("click", olliclick, false);
+}
+
+function animate_ol(obj, value) {
+    if (value > 0) {
+        var speed = -20*value;
+    }
+    if (value < 0) {
+        var speed = -20*value;
+    }
+    var lastleft = obj.offsetLeft;
+    obj.timer = setInterval(function () {
+        var distance = Math.abs(value * liWidth) - Math.abs(obj.offsetLeft - lastleft);
+        if (distance < Math.abs(speed)) {
+            clearInterval(obj.timer);
+            if (value > 0) {
+                obj.style.left = obj.offsetLeft - distance + "px";
+                flag = true;
+            }
+            if (value < 0) {
+                obj.style.left = obj.offsetLeft + distance + "px";
+                flag = true;
+            }
+        }
+        else {
+            obj.style.left = obj.offsetLeft + speed + "px";
+        }
+    }, 1);
+    index = index + value;
+    btnShow(index);
+}
