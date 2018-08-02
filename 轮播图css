@@ -1,0 +1,86 @@
+body, div, p,
+h1, h2, h3, h4, h5, h6,
+dl, dt, dd, ul, ol, li,
+table, caption, th, td,
+form, fieldset, input, textarea, select,
+pre, address, blockquote,
+embed, object {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul, ol {
+    list-style:none;
+}
+
+img {
+    vertical-align: top;
+}
+
+.scroll {
+    width: 950px;
+    height: 438px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.box {
+    width: 950px;
+    height: 438px;
+    overflow: hidden;
+    position: relative;
+}
+
+.box ul{
+    width: 700%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding:0px;
+    margin:0px;
+}
+
+.box ul li{
+    float: left;
+}
+
+.scroll ol {
+    position: absolute;
+    right: 365px;
+    bottom: 5px;
+}
+
+.scroll ol li {
+    float: left;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #000;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.scroll ol li.current {
+    background-color: #000099;
+    opacity: 0.8;
+}
+
+#last {
+    position: absolute;
+    bottom: 179px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+#next {
+    position: absolute;
+    bottom: 179px;
+    right: 0px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
