@@ -47,22 +47,13 @@ var lastclick = function () {
         if (index === 1) {
             index = 6;
             ul.style.left = "-5700px";
-            var n = ul.offsetLeft + liWidth;
-            if (n % liWidth !== 0) {
-                n = n - n % liWidth + liWidth;
-            }
-            animate(ul, n);
+            animate(ul, ul.offsetLeft + liWidth);
         }
         else {
-            var n = ul.offsetLeft + liWidth;
-            if (n % liWidth !== 0) {
-                n = n - n % liWidth + liWidth;
-            }
-            animate(ul, n);
+            animate(ul, ul.offsetLeft + liWidth);
         }
         index -= 1;
         btnShow(index);
-        console.log(flag);
     }
 }
 last.addEventListener("click", lastclick, false);
@@ -73,18 +64,10 @@ var nextclick = function () {
         if (index === 5) {
             index = 0;
             ul.style.left = "0px";
-            var n = ul.offsetLeft - liWidth;
-            if (n % liWidth !== 0) {
-                n = n - n % liWidth - liWidth;
-            }
-            animate(ul, n);
+            animate(ul, ul.offsetLeft - liWidth);
         }
         else {
-            var n = ul.offsetLeft - liWidth;
-            if (n % liWidth !== 0) {
-                n = n - n % liWidth - liWidth;
-            }
-            animate(ul, n);
+            animate(ul, ul.offsetLeft - liWidth);
         }
         index += 1;
         btnShow(index);
@@ -133,7 +116,12 @@ var olliclick = function () {
         var cur_li = document.getElementsByClassName("current");
         var lastid = cur_li[0].id;
         var distance = this.id - lastid;
-        animate_ol(ul, distance)
+        if (distance == 0) {
+            flag = true;
+        }
+        else {
+            animate_ol(ul, distance);
+        }
     }
 }
 var ollitimer = 1
@@ -156,10 +144,12 @@ function animate_ol(obj, value) {
         if (distance < Math.abs(speed)) {
             clearInterval(obj.timer);
             if (value > 0) {
+                clearInterval(obj.timer);
                 obj.style.left = obj.offsetLeft - distance + "px";
                 flag = true;
             }
             if (value < 0) {
+                clearInterval(obj.timer);
                 obj.style.left = obj.offsetLeft + distance + "px";
                 flag = true;
             }
