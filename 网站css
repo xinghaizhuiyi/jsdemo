@@ -1,0 +1,144 @@
+body, div, p,
+h1, h2, h3, h4, h5, h6,
+dl, dt, dd, ul, ol, li,
+table, caption, th, td,
+form, fieldset, input, textarea, select,
+pre, address, blockquote,
+embed, object {
+    margin: 0px;
+    padding: 0px;
+}
+a {
+    text-decoration: none;
+}
+
+#flow{
+    position:absolute;
+    top:-200px;
+    z-index:-1;
+}
+
+.header {
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#dayNav {
+    color: #fff;
+}
+
+.col {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+.col a:nth-child(1) {
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+}
+
+.col a:nth-child(2) {
+    clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+}
+
+.col a:nth-child(3) {
+    clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+}
+
+.col a:nth-child(4) {
+    clip-path: polygon(0 0, 50% 50%, 0 100%);
+}
+
+.col a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    left:0px;
+}
+
+.col a:hover {
+  z-index: 3;
+  clip-path: none;
+}
+
+.col a:nth-child(1):hover ~ .box {
+  transform: rotateX(180deg);
+}
+
+.col a:nth-child(2):hover ~ .box {
+  transform: rotateY(180deg);
+}
+
+.col a:nth-child(3):hover ~ .box {
+  transform: rotateX(-180deg);
+}
+
+.col a:nth-child(4):hover ~ .box {
+  transform: rotateY(-180deg);
+}
+
+.col a:nth-child(1):hover ~ .box:after, .col a:nth-child(3):hover ~ .box:after {
+  transform: rotateX(-180deg);
+}
+
+.col a:nth-child(2):hover ~ .box:after, .col a:nth-child(4):hover ~ .box:after {
+  transform: rotateY(-180deg);
+}
+
+.col .box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transform-style: preserve-3d;
+  transition: transform .3s ease-in-out;
+}
+
+#city_select ::after {
+    content: '';
+    background: url(images/city.jpg);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transition-delay: .15s;
+}
+
+#city_select {
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+#city_text {
+    display: flex;
+    justify-content: center;
+    align-items: Center;
+    width: 100%;
+    height: 100%;
+    z-index:100;
+}
+#today_weather_icon {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: Center;
+    width: 100px;
+    height: 100px;
+}
+
+.textdesc {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: Center;
+    width: 100px;
+    height: 100px;
+    flex-direction: column;
+}
+
+#today_pm_wrapper {
+    font-size:16px;
+}
