@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="StyleSheet.css" type="text/css">
+</head>
+<body>
+    <div id="wrap">
+        <img id="flow" src="images/flow.jpg" />
+        <div class="header">
+            <div id="dayNav">
+                <!-- 天气 -->
+                <div class="col">
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                    <div id="city_select" class="city box">
+                        <p id="city_text" class="stong"></p>
+                    </div>
+                </div>
+                <!--今天空气质量-->
+                <div id="today_weather" class="airleft">
+                    <div id="today_weather_icon" class="icon">
+                        <img id="todayimg">
+                    </div>
+                    <div class="textdesc">
+                        <div class="wrapper">
+                            <p>
+                                <span id="today_wather_desc"></span>
+                            </p>
+                        </div>
+                        <p class="sub"></p>
+                    </div>
+                    <div class="textdesc">
+                        <div id="today_pm_wrapper">
+                            <span id="today_weather_pm" class="fine" data-pm-link="http://tianqi.sogou.com/air/aomen/"></span>
+                            <span id="pm_describe"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--明天空气质量-->
+                <div id="tomorrow_weather" class="airright">
+                    <div id="tomorrow_weather_icon" class="icon">
+                        <img id="tomorrowimg">
+                    </div>
+                    <div class="textdesc">
+                        <p>
+                            <span id="tomorrow_wather_desc"></span>
+                        </p>
+                        <p class="sub"></p>
+                    </div>
+                </div>
+                <div class="date">
+                    <p id="date"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="JavaScript.js"></script>
+    <script type="text/javascript" src="JavaScript2.js"></script>
+</body>
+</html>
