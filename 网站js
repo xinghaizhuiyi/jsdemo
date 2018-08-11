@@ -1,0 +1,57 @@
+function loadScript(url) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    document.body.appendChild(script);
+    document.body.removeChild(script);
+}
+
+var wrap = document.getElementById("wrap");
+var dayNav = document.getElementById("dayNav");
+var pm = document.getElementById("today_weather_pm")
+var todaydate = document.getElementById("date");
+var tomorrow_wather_desc = document.getElementById("tomorrow_wather_desc");
+var today_wather_desc = document.getElementById("today_wather_desc");
+var pm_describe = document.getElementById("pm_describe");
+
+function loadWeatherData(WeatherData) {
+    console.log(WeatherData);
+    //dayNav.children[0].children[4].children[0].innerHTML = WeatherData.city;
+    //城市
+    dayNav.children[1].title = WeatherData.today.bwea;
+    today_wather_desc.innerHTML = WeatherData.today.bwea;
+    //本日天气
+    dayNav.children[1].children[0].children[0].src = "https://123p2.sogoucdn.com/u/haoqq/v2/img/weatar/" + (WeatherData.today.bweac+1) + ".png";
+    //本日天气图
+    pm.innerHTML = "空气质量："+WeatherData.pm25.level;
+    pm_describe.innerHTML = WeatherData.pm25.advice;
+    //空气质量
+    dayNav.children[1].children[1].children[1].innerHTML = WeatherData.today.tmin + "°C" + "-" + WeatherData.today.tmax + "°C";
+    //本日温度
+    dayNav.children[2].title = WeatherData.tomorrow.bwea;
+    tomorrow_wather_desc.innerHTML = WeatherData.tomorrow.bwea;
+    //次日天气
+    dayNav.children[2].children[0].children[0].src = "https://123p2.sogoucdn.com/u/haoqq/v2/img/weatar/" + (WeatherData.tomorrow.bweac + 1) + ".png";
+    //次日天气图
+    dayNav.children[2].children[1].children[1].innerHTML = WeatherData.tomorrow.tmin + "°C" + "-" + WeatherData.tomorrow.tmax + "°C";
+    //次日温度
+    todaydate.innerHTML = WeatherData.today.date;
+}
+
+window.onload = function () {
+    loadScript("https://hao.qq.com/weather?id=01012507&cb=loadWeatherData&_=1533733875238");
+};
+
+var flow = document.getElementById("flow");
+function animate(obj) {
+    var speed = obj.offsetLeft < target ? 10 : -10;
+    obj.timer = setInterval(function () {
+        var result = target - obj.offsetLeft;
+        obj.style.left = obj.offsetLeft + speed + "px";
+        if (Math.abs(result) <= Math.abs(speed)) {
+            clearInterval(obj.timer);
+            obj.style.left = target + "px";
+            flag = true;
+        }
+    }, 1);
+}
