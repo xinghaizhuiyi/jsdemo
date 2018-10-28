@@ -1,0 +1,52 @@
+var http = require('http');
+var cheerio = require('cheerio');
+
+var url = 'http://erya.mooc.chaoxing.com/';
+
+http.get(url, function (res) {
+    var html = '';
+    res.on('data', function (data) {
+        html += data;
+    });
+    res.on('end', function () {
+        var slideListData = filterSlideList(html);
+        printInfo(slideListData);
+    });
+}).on('error', function () {
+    console.log('获取数据出错');
+});
+
+function filterSlideList(html) {
+    if (html) {
+        var $ = cheerio.load(html);
+        var slideList = $('.page-banner');
+        var slideListData = [];
+
+        slideList.find('div.swiper-slide').each(function (item) {
+
+            var pic = $(this);
+            var pic_href = pic.find('a').attr('href');
+            var pic_src = pic.find('a').children('img').attr('src');
+            slideListData.push({
+                pic_href: pic_href,
+                pic_src: pic_src
+            });
+        });
+        return slideListData;
+    } else {
+        console.log('无数据传入！');
+    }
+}
+
+function printInfo(slideListData) {
+    var count = 0;
+    slideListData.forEach(function (item) {
+        var pic_src = item.pic_src;
+        var pic_href = item.pic_href;
+        var pic_message = item.pic_message;
+        console.log('第' + (++count) + '个轮播图');
+        console.log(pic_href);
+        console.log(pic_src);
+        console.log('\n');
+    });
+}
